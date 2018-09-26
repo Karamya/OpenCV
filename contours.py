@@ -15,7 +15,6 @@ Created on Fri Nov 25 13:49:28 2016
 import cv2
 import numpy as np
 import os
-os.chdir("D:/Data analysis/OpenCV")
 
 
 #########################################################################################################
@@ -76,7 +75,7 @@ cv2.destroyAllWindows()
 #########################################################################################################
 
 ### Drawing the contour on blank images, just not to miss the contour from a coloured image
-### 
+###
 #########################################################################################################
 
 """
@@ -116,7 +115,7 @@ cv2.destroyAllWindows()
 """
 #########################################################################################################
 
-### Sorting contours 
+### Sorting contours
 ### Sorting by area can assist in image recognition. Eliminate small contours that maybe noise, Extract the largest contour
 ### sorting by spatial position (using the contour centroid) -sort characters left to right, process images in specific order
 #########################################################################################################
@@ -128,7 +127,7 @@ def get_contour_areas(contours):
         area = cv2.contourArea(contour)
         all_areas.append(area)
     return all_areas
-    
+
 image = cv2.imread('images/bunchofshapes.jpg')
 original_image = image
 
@@ -157,7 +156,7 @@ for c in sorted_contours:
     cv2.drawContours(original_image, [c], -1, (255, 0, 0), 3)
     cv2.waitKey(0)
     cv2.imshow('Contours by area', original_image)
-    
+
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 
@@ -172,19 +171,19 @@ def x_cord_contour(contours):
     if cv2.contourArea(contours)>10:
         M = cv2.moments(contours)
         return(int(M['m10']/M['m00']))
-        
+
 def label_contour_center(image, c, i):
     ### places a red circle on the centers of contours
     M = cv2.moments(c)
     cx = int(M['m10']/M['m00'])
     cy = int(M['m01']/M['m00'])
-    
+
     # Draw the contour number on the image
     cv2.circle(image, (cx, cy), 10, (0, 0, 255), -1)
     return image
-    
 
-# Load our image 
+
+# Load our image
 image = cv2.imread('images/bunchofshapes.jpg')
 original_image = image.copy()
 
@@ -208,13 +207,13 @@ for (i, c) in enumerate(contours_left_to_right):
     cv2.imshow('6 - Left to Right Contour', original_image)
     cv2.waitKey(0)
     (x, y, w, h) = cv2.boundingRect(c)
-    
+
     ### Let's now crop each contour and save these images
     cropped_contour = original_image[y:y + h, x: x + w]
     image_name = 'output_shape_number_'+str(i+1) + '.jpg'
     print(image_name)
     cv2.imwrite(image_name, cropped_contour)
-    
+
 cv2.destroyAllWindows()
 
 """
@@ -245,7 +244,7 @@ for c in contours:
     x, y, w, h = cv2.boundingRect(c)
     cv2.rectangle(orig_image, (x, y), (x + w, y + h), (0, 0, 255), 2)
     cv2.imshow('Bounding Rectangle', orig_image)
-    
+
 cv2.waitKey(0)
 
 ### Iterate through each contour and compute the approx. contour
@@ -255,7 +254,7 @@ for c in contours:
     approx = cv2.approxPolyDP(c, accuracy, True)  ### This is how we approximate contours
     cv2.drawContours(image, [approx], 0, (0, 255, 0), 2)
     cv2.imshow('Approx Poly DP', image)
-    
+
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 
@@ -288,7 +287,7 @@ for c in contours:
     hull = cv2.convexHull(c)
     cv2.drawContours(image, [hull], 0, (0, 255, 0), 2)
     cv2.imshow('Convex Hull', image)
-    
+
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 """
@@ -329,16 +328,16 @@ template_contour = contours[1]
 ret, contours, hierarchy = cv2.findContours(thresh2, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)
 
 for c in contours:
-    ## Iterate through each contour in the target image and 
+    ## Iterate through each contour in the target image and
     ###  use cv2.matchShape to compare contour shapes
     match = cv2.matchShapes(template_contour, c, 1, 0.0)
     print(match)
-    ## if the match value is less than 0.15 we 
+    ## if the match value is less than 0.15 we
     if match < 0.15:
         closest_contour = c
     else:
         closest_contour = []
-        
+
 cv2.drawContours(target, [closest_contour], -1, (0, 255, 0), 3)
 cv2.imshow('Output', target)
 cv2.waitKey()

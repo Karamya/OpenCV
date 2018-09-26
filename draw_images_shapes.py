@@ -11,7 +11,7 @@ import numpy as np
 
 #########################################################################################################
 
-### To create an image 
+### To create an image
 
 #########################################################################################################
 """
@@ -89,13 +89,14 @@ cv2.destroyAllWindows()
 """
 #########################################################################################################
 
-### To add text 
+### To add text
 ### cv2.putText(image, 'Text to Display', bottom left starting point, Font, Font size, Color, Thickness)
 #########################################################################################################
 
 image = np.zeros((512, 512, 3), np.uint8)
 
-cv2.putText(image, "Hello Ramya", (50, 260), cv2.FONT_HERSHEY_COMPLEX, 2, (250, 10, 0), 3)
+cv2.putText(image, "Hello World", (50, 260), cv2.FONT_HERSHEY_COMPLEX, 2, (250, 10, 0), 3)
 cv2.imshow("Hello Karthick", image)
-cv2.waitKey()
+cv2.waitKey(0)
 cv2.destroyAllWindows()
+cv2.waitKey(1)

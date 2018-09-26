@@ -8,7 +8,6 @@ import cv2
 import numpy as np
 import os
 from matplotlib import pyplot as plt
-os.chdir("D:/Data analysis/OpenCV")
 
 
 """
@@ -37,7 +36,7 @@ Blue - 90 to 120
 image = cv2.imread('./images/input.jpg')  # IMG_3650.jpg input.jpg
 
 """
-##BGR values for any pixel 
+##BGR values for any pixel
 B, G, R = image[0, 0]
 print(image[0,0])
 
@@ -105,10 +104,10 @@ cv2.imshow("Tobago", image)
 ### images : it is the source image of type uint8 or float32. It should be given in square brackets
 ### channels: also give in square brackets. It is the index of channel for which we calculate histograms.
 ### If input is grayscale image, value is [0]. For color image, you can pass [0], [1], [2] to calculate histogram of blue, green or red channel respectively
-### mask: mask image. To find histogram of full iamge, it is given as None. 
+### mask: mask image. To find histogram of full iamge, it is given as None.
 ### histSize: this represents our BIN count. Need to be given in square brackets, for full scale, we pass [256]
 # ranges: this is our range. Normally it is [0, 256]
-histogram = cv2.calcHist([image], [0], None, [256], [0, 256]) 
+histogram = cv2.calcHist([image], [0], None, [256], [0, 256])
 
 ## to plot a histogram, ravel() flattens our image array
 plt.hist(image.ravel(), 256, [0,256])
@@ -122,4 +121,3 @@ for i, col in enumerate(color):
     plt.xlim([0, 256])
 
 plt.show()
-

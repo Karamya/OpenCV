@@ -7,9 +7,8 @@ Created on Thu Nov 17 16:06:31 2016
 
 import cv2
 import os
-os.chdir("D:/Data analysis/OpenCV")
 
-image = cv2.imread('./images/input.jpg')
+image = cv2.imread('images/input.jpg')
 
 cv2.imshow('Original', image)
 cv2.waitKey()

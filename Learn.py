@@ -9,9 +9,7 @@ import cv2
 import numpy as np
 import os
 
-os.chdir("D:/Data analysis/OpenCV")
-
-image = cv2.imread("./images/input.jpg")  ###image is loaded and stored in variable image
+image = cv2.imread("images/input.jpg")  ###image is loaded and stored in variable image
 
 cv2.imshow('Karthick', image)  ### First parameter is the title of the image window and second parameter is the image variable
 

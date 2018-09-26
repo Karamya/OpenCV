@@ -7,7 +7,6 @@ Created on Mon Nov 21 16:39:06 2016
 import cv2
 import numpy as np
 import os
-os.chdir("D:/Data analysis/OpenCV")
 """
 Transformations :
 Affine - scaling, rotation , translation
@@ -18,12 +17,12 @@ Translation Matrix
 
 T = | 1 0 Tx |
     | 0 1 Ty |
-    
+
     Tx represents the shift along the x-axis (horizontal)
     Ty represents the shift along the y-axis (vertical)
-use openCV function cv2.warpAffine to implement these translations    
-    
-    
+use openCV function cv2.warpAffine to implement these translations
+
+
 """
 #########################################################################################################
 
@@ -192,16 +191,16 @@ cv2.imshow('Subtracted', subtracted)
 
 cv2.waitkey(10)
 cv2.destroyAllWindows()
-""" 
+"""
 #########################################################################################################
 
 ### Bitwise operations and Masking
-### 
+###
 
 #########################################################################################################
 """
 ## we use only two dimensions, as this is a grayscale image
-## for coloured image, we  would use 
+## for coloured image, we  would use
 ## rectangle = np.zeros((300, 300, 3), np.uint8)
 
 # making a square
@@ -228,7 +227,7 @@ bitwise_or = cv2.bitwise_or(square, ellipse)
 cv2.imshow('OR', bitwise_or)
 cv2.waitKey(0)
 
-# Shows 1xor1 is 0, 0xor0 is 0, 1xor0 or 0xor1 is 1 
+# Shows 1xor1 is 0, 0xor0 is 0, 1xor0 or 0xor1 is 1
 bitwise_xor = cv2.bitwise_xor(square, ellipse)
 cv2.imshow('XOR', bitwise_xor)
 cv2.waitKey(0)
@@ -242,7 +241,7 @@ cv2.waitKey(0)
 #########################################################################################################
 
 ### Convolutions and Blurring
-### convolution is a mathematical operation performed on two functions producing a third function 
+### convolution is a mathematical operation performed on two functions producing a third function
 ### which is typically a modified version of one of the original functions
 ### Output image = image convolution Function(Kernel Size)
 ### in Computer vision we use Kernel's to specify the size over which we run our manipulating function over our image
@@ -271,7 +270,7 @@ blurred2 = cv2.filter2D(image, -1, kernel_7x7)
 cv2.imshow('7x7 Kernel Blurring', blurred2)
 cv2.waitKey(0)
 
-cv2.destroyAllWindows() 
+cv2.destroyAllWindows()
 
 
 ### Averaging done by convolving the image with a normalized box filter
@@ -282,11 +281,11 @@ cv2.imshow('Averaging', blur)
 cv2.waitKey(0)
 
 # Gaussian kernel instead of a box filter
-gaussian = cv2.GaussianBlur(image, (7,7), 0) 
+gaussian = cv2.GaussianBlur(image, (7,7), 0)
 cv2.imshow('Gaussian Blurring', gaussian)
 cv2.waitKey(0)
 
-# Takes median of all the pixels under the kernel area and central element is 
+# Takes median of all the pixels under the kernel area and central element is
 # replaced with this median value
 median = cv2.medianBlur(image, 5) ### Nice balance between gaussian and averaging
 cv2.imshow('Median Blurring', median)
@@ -316,11 +315,11 @@ cv2.destroyAllWindows()
 #########################################################################################################
 
 ### Sharpening - opposite of blurring, it strengthens or emphasize edges in an image
-###  Kernel matrix sums to one, so there is no need to normalize (ie., multiply by a factor to 
+###  Kernel matrix sums to one, so there is no need to normalize (ie., multiply by a factor to
 ### retain the same brightness of the original)
 ### Kernel = | -1 -1 -1 |
 ###          |-1  9  -1 |
-###          | -1 -1 -1 | 
+###          | -1 -1 -1 |
 
 #########################################################################################################
 """
@@ -362,11 +361,11 @@ cv2.imshow('Original', image)
 ret, thresh1 = cv2.threshold(image, 127, 255, cv2.THRESH_BINARY)
 cv2.imshow('1 Threshold Binary', thresh1)
 
-## Values below 127 goes to 255 , everything above goes 127 to 0 
+## Values below 127 goes to 255 , everything above goes 127 to 0
 ret, thresh2 = cv2.threshold(image, 127, 255, cv2.THRESH_BINARY_INV)
 cv2.imshow('2 Threshold Binary Inverse', thresh2)
 
-## Values above 127 are truncated(held) at 127 (the 255 argument is unused) 
+## Values above 127 are truncated(held) at 127 (the 255 argument is unused)
 ret, thresh3 = cv2.threshold(image, 127, 255, cv2.THRESH_TRUNC)
 cv2.imshow('3 Threshold Trunc', thresh3)
 
@@ -390,7 +389,7 @@ cv2.destroyAllWindows()
 ### Adaptive threshold types:
 ### ADAPTIVE_THRESH_MEAN_C - based on mean of the neighborhood of pixels
 ### ADAPTIVE_THRESH_GAUSSIAN_C - weighted sum of neighborhood pixels under the Gaussian Window
-### THRESH_OTSU (uses cv2.threshold function) - Clever algorithm assumes there are two peaks in the gray scale histogram 
+### THRESH_OTSU (uses cv2.threshold function) - Clever algorithm assumes there are two peaks in the gray scale histogram
 ### of the image and then tries to find an optimal value to separate these two peaks to find T
 
 #########################################################################################################
@@ -484,7 +483,7 @@ cv2.destroyAllWindows()
 ### 3. Applied non-maximum suppression (i.e., removes pixels that are not edges)
 ### 4. Hysteresis - Applies thresholds (i.e., if pixel is within the upper and lower thresholds, it is considered an edge)
 ### Check for research articles on edge detection algorithm comparisons
-### 
+###
 
 #########################################################################################################
 """
@@ -511,10 +510,10 @@ laplacian = cv2.Laplacian(image, cv2.CV_64F)
 cv2.imshow('Laplacian', laplacian)
 cv2.waitKey(0)
 
-## Then, we need to provide two values: Threshold1 and threshold2. Any gradient value larger than 
+## Then, we need to provide two values: Threshold1 and threshold2. Any gradient value larger than
 ## threshold2 is considered to be an edge. Any value below threshold1 is considered not to be an edge.
 ## Value in between threshold1 and threshold2 are either classified as edges or non-edges based on how
-## their intensities are 'connected'. In this case, any gradient values below 60 are considered non-edges 
+## their intensities are 'connected'. In this case, any gradient values below 60 are considered non-edges
 ### whereas any values above 120 are considered edges
 
 ## Canny edge detection uses gradient values as thresholds
@@ -588,4 +587,3 @@ cv2.waitKey(0)
 cv2.destroyAllWindows()
 
 """
-
